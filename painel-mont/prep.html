@@ -1,0 +1,645 @@
+<title>Caderno de Bordo Mont</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#F5F2EC;
+  --surface:#FFFDF9;
+  --surface-2:#F0ECE3;
+  --ink:#1A1712;
+  --ink-2:#453E33;
+  --muted:#7A6F5E;
+  --line:#DDD5C7;
+  --line-soft:#EAE4D8;
+  --accent:#9A5B12;
+  --accent-2:#C07A22;
+  --accent-soft:#F6EBDA;
+  --ok:#2F6B45;--ok-soft:#E3EFE7;
+  --warn:#96650A;--warn-soft:#F8EEDA;
+  --risk:#A63A2C;--risk-soft:#F7E4E0;
+  --f-d:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-b:"Source Serif 4",Georgia,serif;
+  --f-m:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){
+  --ground:#14110C;--surface:#1D1913;--surface-2:#252017;--ink:#F0EAE0;--ink-2:#CBC2B3;
+  --muted:#998D79;--line:#3A3327;--line-soft:#2A2419;
+  --accent:#E0A459;--accent-2:#C98D42;--accent-soft:#2E2416;
+  --ok:#6FBB8A;--ok-soft:#1A2A1F;--warn:#DCA845;--warn-soft:#2C2413;--risk:#E28376;--risk-soft:#2E1A16;
+ }
+}
+:root[data-theme="dark"]{
+  --ground:#14110C;--surface:#1D1913;--surface-2:#252017;--ink:#F0EAE0;--ink-2:#CBC2B3;
+  --muted:#998D79;--line:#3A3327;--line-soft:#2A2419;
+  --accent:#E0A459;--accent-2:#C98D42;--accent-soft:#2E2416;
+  --ok:#6FBB8A;--ok-soft:#1A2A1F;--warn:#DCA845;--warn-soft:#2C2413;--risk:#E28376;--risk-soft:#2E1A16;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--f-b);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px 90px;}
+
+/* faixa privada */
+.faixa{
+  background:var(--ink);color:var(--ground);position:sticky;top:0;z-index:50;
+  font-family:var(--f-m);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  padding:9px 24px;display:flex;gap:12px;align-items:center;justify-content:center;text-align:center;
+}
+.faixa b{color:var(--accent-2);font-weight:600;}
+
+header.capa{padding:64px 0 40px;border-bottom:2px solid var(--ink);margin-bottom:34px;}
+header.capa .eyebrow{
+  font-family:var(--f-m);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:18px;
+}
+header.capa h1{
+  font-family:var(--f-d);font-weight:700;font-size:46px;line-height:1.05;letter-spacing:-.035em;
+  margin:0 0 16px;text-wrap:balance;
+}
+header.capa p{font-size:18px;color:var(--ink-2);margin:0;max-width:62ch;}
+
+nav.indice{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  padding:18px 22px;margin-bottom:38px;
+}
+nav.indice h2{
+  font-family:var(--f-m);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 11px;font-weight:500;
+}
+nav.indice ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;counter-reset:s;}
+nav.indice li{counter-increment:s;}
+nav.indice a{
+  font-family:var(--f-d);font-size:14px;font-weight:500;color:var(--ink-2);
+  text-decoration:none;display:flex;gap:9px;padding:3px 0;
+}
+nav.indice a::before{content:counter(s,decimal-leading-zero);font-family:var(--f-m);font-size:11px;color:var(--accent);}
+nav.indice a:hover{color:var(--accent);}
+
+section{margin-bottom:52px;scroll-margin-top:60px;}
+section > h2{
+  font-family:var(--f-d);font-weight:700;font-size:27px;letter-spacing:-.025em;
+  margin:0 0 6px;padding-top:16px;border-top:1px solid var(--line);text-wrap:balance;
+}
+section > .sub{font-size:15px;color:var(--muted);margin:0 0 22px;}
+h3{font-family:var(--f-d);font-weight:700;font-size:17px;letter-spacing:-.015em;margin:28px 0 9px;}
+h4{font-family:var(--f-d);font-weight:600;font-size:14px;margin:20px 0 7px;color:var(--accent);}
+p{margin:0 0 13px;}
+strong{font-weight:600;color:var(--ink);}
+em.q{font-style:italic;color:var(--ink);}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px 22px;margin:16px 0;}
+.card.quiet{background:var(--surface-2);}
+.card.warn{background:var(--warn-soft);border-color:var(--warn);}
+.card.risk{background:var(--risk-soft);border-color:var(--risk);}
+.card.ok{background:var(--ok-soft);border-color:var(--ok);}
+.card .lbl{
+  font-family:var(--f-m);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);display:block;margin-bottom:8px;font-weight:500;
+}
+.card.warn .lbl{color:var(--warn);} .card.risk .lbl{color:var(--risk);} .card.ok .lbl{color:var(--ok);}
+.card p:last-child{margin-bottom:0;}
+
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:7px;}
+ul.check{list-style:none;padding-left:0;}
+ul.check li{padding-left:28px;position:relative;}
+ul.check li::before{
+  content:"";position:absolute;left:0;top:.35em;width:14px;height:14px;
+  border:1.5px solid var(--accent);border-radius:3px;
+}
+
+.mono{font-family:var(--f-m);font-size:13px;}
+code{font-family:var(--f-m);font-size:13.5px;background:var(--surface-2);padding:1.5px 5px;border-radius:3px;color:var(--accent);}
+pre{
+  font-family:var(--f-m);font-size:12.5px;background:var(--surface-2);border:1px solid var(--line-soft);
+  border-left:3px solid var(--accent);padding:13px 16px;border-radius:0 4px 4px 0;
+  overflow-x:auto;line-height:1.7;margin:14px 0;color:var(--ink);
+}
+pre .c{color:var(--muted);}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:4px;margin:16px 0;}
+table{width:100%;border-collapse:collapse;font-family:var(--f-d);font-size:13.5px;}
+thead th{
+  text-align:left;font-family:var(--f-m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;padding:10px 13px;background:var(--surface-2);
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody td{padding:10px 13px;border-bottom:1px solid var(--line-soft);color:var(--ink-2);vertical-align:top;line-height:1.45;}
+tbody tr:last-child td{border-bottom:0;}
+tbody td strong{color:var(--ink);}
+td.num,th.num{font-family:var(--f-m);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;}
+
+.qa{border-left:3px solid var(--line);padding-left:20px;margin:22px 0;}
+.qa .p{font-family:var(--f-d);font-weight:700;font-size:16px;color:var(--ink);margin:0 0 9px;letter-spacing:-.01em;}
+.qa .p::before{content:"P ";font-family:var(--f-m);font-size:12px;color:var(--accent);}
+.qa .r{margin:0;}
+.qa .r::before{content:"R ";font-family:var(--f-m);font-size:12px;color:var(--muted);}
+.qa.dificil{border-left-color:var(--risk);}
+
+.tempo{
+  display:inline-block;font-family:var(--f-m);font-size:11px;background:var(--accent-soft);
+  color:var(--accent);padding:2px 8px;border-radius:3px;margin-left:8px;font-weight:500;vertical-align:middle;
+}
+
+.passo{display:grid;grid-template-columns:44px 1fr;gap:16px;margin:20px 0;align-items:start;}
+.passo .n{
+  font-family:var(--f-d);font-weight:700;font-size:19px;color:var(--surface);
+  background:var(--accent);width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+}
+.passo .txt h3{margin:2px 0 6px;}
+.passo .fala{
+  font-family:var(--f-b);font-size:15px;color:var(--ink);background:var(--surface-2);
+  border-left:3px solid var(--accent-2);padding:11px 15px;border-radius:0 3px 3px 0;margin:9px 0 0;
+}
+.passo .fala::before{content:"\201C";}
+.passo .fala::after{content:"\201D";}
+
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0;}
+.stat{border:1px solid var(--line);border-radius:4px;padding:13px 15px;background:var(--surface);}
+.stat .k{font-family:var(--f-m);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);}
+.stat .v{font-family:var(--f-d);font-weight:700;font-size:24px;letter-spacing:-.03em;margin:4px 0 1px;font-variant-numeric:tabular-nums;}
+.stat .s{font-size:12.5px;color:var(--muted);font-family:var(--f-d);}
+
+footer{border-top:2px solid var(--ink);padding-top:22px;margin-top:20px;font-size:14px;color:var(--muted);}
+
+@media(max-width:700px){
+  header.capa h1{font-size:31px;}
+  header.capa{padding:36px 0 26px;}
+  nav.indice ol{grid-template-columns:1fr;}
+  .wrap{padding:0 15px 60px;}
+  .passo{grid-template-columns:1fr;gap:8px;}
+  section > h2{font-size:22px;}
+}
+</style>
+
+<div class="faixa">
+  <span><b>Material privado</b> · só para o Alexis · não faz parte da entrega ao Grupo Mont</span>
+</div>
+
+<div class="wrap">
+
+<header class="capa">
+  <div class="eyebrow">Caderno de bordo · Desafio Técnico Grupo Mont</div>
+  <h1>O que existe, o que dizer, e o que responder quando apertarem.</h1>
+  <p>Tudo que você precisa para entrar na sala sabendo exatamente o que foi construído, em que ordem mostrar, e como sustentar cada decisão sem hesitar.</p>
+</header>
+
+<nav class="indice">
+  <h2>Neste caderno</h2>
+  <ol>
+    <li><a href="#inventario">O que você tem em mãos</a></li>
+    <li><a href="#numeros">Números para saber de cor</a></li>
+    <li><a href="#checklist">Checklist de 30 minutos antes</a></li>
+    <li><a href="#roteiro">Roteiro da demo, minuto a minuto</a></li>
+    <li><a href="#seis">As seis decisões que sustentam tudo</a></li>
+    <li><a href="#perguntas">Banco de respostas</a></li>
+    <li><a href="#dificeis">As perguntas que doem</a></li>
+    <li><a href="#glossario">Glossário de bolso</a></li>
+    <li><a href="#planob">Se algo quebrar</a></li>
+    <li><a href="#antes">O que fazer antes do dia</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================= 1 -->
+<section id="inventario">
+  <h2>1 · O que você tem em mãos</h2>
+  <p class="sub">Três entregáveis, e o que cada um cobre do briefing.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Entregável</th><th>O que é</th><th>Cobre</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Apresentação</strong><br><span class="mono" style="color:var(--muted)">artifact web + .pptx</span></td>
+            <td>36 slides com notas do apresentador. Entendimento dos negócios, modelagem, catálogo de KPIs, forecast, alertas, arquitetura, limitações e roadmap.</td>
+            <td>Item 15.5</td></tr>
+        <tr><td><strong>Aplicação</strong><br><span class="mono" style="color:var(--muted)">painel-mont.zip</span></td>
+            <td>Django (dados) + FastAPI (API analítica) + React/TS. Seis telas navegáveis, 53 KPIs, 9 regras de alerta, 57 testes.</td>
+            <td>Itens 15.1 e 15.2</td></tr>
+        <tr><td><strong>README</strong><br><span class="mono" style="color:var(--muted)">dentro do zip</span></td>
+            <td>Como executar, tecnologias, arquitetura, estrutura dos dados, decisões, dados faltantes, testes, limitações e roadmap.</td>
+            <td>Itens 15.3 e 15.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>O que está dentro da aplicação</h3>
+  <div class="stat-row">
+    <div class="stat"><span class="k">Telas</span><span class="v">6</span><span class="s">as 5 do item 4 + Saúde dos Dados</span></div>
+    <div class="stat"><span class="k">KPIs documentados</span><span class="v">53</span><span class="s">11 grupo · 9 mkt · 33 próprios</span></div>
+    <div class="stat"><span class="k">Regras de alerta</span><span class="v">9</span><span class="s">7 disparando na base demo</span></div>
+    <div class="stat"><span class="k">Testes</span><span class="v">57</span><span class="s">todos passando</span></div>
+    <div class="stat"><span class="k">Linhas Python</span><span class="v">4.3 mil</span><span class="s">sem migrations</span></div>
+    <div class="stat"><span class="k">Linhas TS/CSS</span><span class="v">2.5 mil</span><span class="s">front inteiro</span></div>
+  </div>
+
+  <div class="card ok">
+    <span class="lbl">A frase de abertura</span>
+    <p>Se você só decorar uma coisa deste caderno, decore esta: <strong>“O briefing diz que o desafio é construir um dashboard. Eu li de outro jeito — o desafio é decidir o que não mostrar.”</strong></p>
+    <p>Ela posiciona você como alguém que pensou no problema antes de pensar na ferramenta. Todo o resto da conversa fica mais fácil depois dela.</p>
+  </div>
+</section>
+
+<!-- ============================================= 2 -->
+<section id="numeros">
+  <h2>2 · Números para saber de cor</h2>
+  <p class="sub">Se alguém apontar para a tela e perguntar “o que é isso?”, estes são os que vão aparecer. Base de agosto/2026, 19 de 21 dias úteis decorridos.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Empresa</th><th>Status</th><th class="num">Realizado</th><th class="num">Meta</th><th class="num">Ritmo</th><th class="num">Esforço</th><th class="num">VIG</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Montseguro</strong></td><td style="color:var(--ok)"><strong>verde</strong></td><td class="num">456 mil</td><td class="num">484 mil</td><td class="num">1,04×</td><td class="num">0,58×</td><td class="num">4,7 mi</td></tr>
+        <tr><td><strong>Prop5</strong></td><td style="color:var(--risk)"><strong>vermelho</strong></td><td class="num">241 mil</td><td class="num">289 mil</td><td class="num">0,92×</td><td class="num">1,88×</td><td class="num">7,9 mi</td></tr>
+        <tr><td><strong>TechBrabo</strong></td><td style="color:var(--risk)"><strong>vermelho</strong></td><td class="num">242 mil</td><td class="num">322 mil</td><td class="num">0,83×</td><td class="num">3,11×</td><td class="num">300 mil</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="k">RRG do grupo</span><span class="v">R$ 940 mil</span><span class="s">receita reconhecida</span></div>
+    <div class="stat"><span class="k">VIG do grupo</span><span class="v">R$ 12,9 mi</span><span class="s">13,7× a RRG</span></div>
+    <div class="stat"><span class="k">Take rate Prop5</span><span class="v">4,7%</span><span class="s">a ponte entre os dois</span></div>
+    <div class="stat"><span class="k">ROAS de coorte</span><span class="v">4,35×</span><span class="s">safra madura em 90 dias</span></div>
+  </div>
+
+  <div class="card warn">
+    <span class="lbl">O número que você mais vai usar</span>
+    <p><strong>13,7×.</strong> É quantas vezes o Volume Intermediado supera a Receita Reconhecida do grupo. É a prova numérica, na tela, de que somar as três empresas ingenuamente produziria um número treze vezes maior que a realidade.</p>
+    <p>Na Prop5 isolada a razão é ainda maior: R$ 7,9 milhões passaram pela mesa, R$ 241 mil viraram receita.</p>
+  </div>
+
+  <h3>Por que a Montseguro está verde e as outras duas vermelhas</h3>
+  <p>Esta é a pergunta mais provável de toda a demo. A resposta curta:</p>
+  <ul>
+    <li><strong>Montseguro</strong> — está 4% acima do ritmo e precisa de <em>menos</em> esforço que o atual para fechar. Verde.</li>
+    <li><strong>Prop5</strong> — está a 92% do ritmo, o que sozinho seria amarelo. Mas faltam 2 dias úteis e ela precisaria produzir <strong>1,88× o ritmo médio</strong> para bater a meta. A regra de esforço acima de 1,30 força vermelho.</li>
+    <li><strong>TechBrabo</strong> — 83% do ritmo, abaixo do piso de 85%, e esforço de 3,11×. Vermelho por duas condições ao mesmo tempo.</li>
+  </ul>
+  <p>Repare no que isso demonstra: <strong>o semáforo não é o percentual da meta.</strong> É exatamente o ponto que a apresentação defende, acontecendo na tela.</p>
+</section>
+
+<!-- ============================================= 3 -->
+<section id="checklist">
+  <h2>3 · Checklist de 30 minutos antes</h2>
+  <p class="sub">Faça na ordem. Não pule o passo 5.</p>
+
+  <ul class="check">
+    <li><strong>Suba o backend</strong> — <code>cd backend && python -m uvicorn api.main:app --port 8000</code>. Confirme abrindo <code>127.0.0.1:8000/api/saude</code>: precisa responder <code>"ok": true</code>.</li>
+    <li><strong>Suba o front</strong> — <code>cd frontend && npm run dev</code>. Abra <code>localhost:5173</code> e veja se os três semáforos carregam.</li>
+    <li><strong>Rode os testes uma vez</strong> — <code>python -m pytest</code>. Deixe o terminal com os 52 verdes visível. Se pedirem para ver, você não precisa procurar.</li>
+    <li><strong>Abra as abas na ordem da demo</strong> — painel, <code>127.0.0.1:8000/docs</code>, o README no editor, a apresentação. Nada de procurar aba durante a fala.</li>
+    <li><strong>Abra a Saúde dos Dados uma vez</strong> — <code>localhost:5173/#/saude-dados</code>. É a tela que menos gente vai esperar e a que mais te diferencia; você não quer descobrir um problema nela ao vivo.</li>
+    <li><strong>Clique uma vez em cada tela</strong> e passe o mouse sobre um “?” de KPI. Você quer descobrir qualquer problema agora, não na frente deles.</li>
+    <li><strong>Feche o Slack, o WhatsApp e as notificações.</strong></li>
+    <li><strong>Deixe o zoom do navegador em 90%</strong> — a tela do CEO cabe inteira sem rolagem, e o efeito de “ele vê tudo de uma vez” é bem melhor.</li>
+  </ul>
+
+  <div class="card quiet">
+    <span class="lbl">Se a demo for por videochamada</span>
+    <p>Compartilhe a <strong>janela do navegador</strong>, não a tela inteira. Teste o compartilhamento 5 minutos antes com alguém. E tenha os prints de todas as telas salvos numa pasta: se o compartilhamento falhar, você continua a apresentação por imagem sem perder o ritmo.</p>
+  </div>
+</section>
+
+<!-- ============================================= 4 -->
+<section id="roteiro">
+  <h2>4 · Roteiro da demo, minuto a minuto</h2>
+  <p class="sub">Quatorze minutos de demonstração. As falas entre aspas são para dizer quase literalmente — foram escritas para caber no ritmo de fala normal.</p>
+
+  <div class="passo">
+    <div class="n">1</div>
+    <div class="txt">
+      <h3>Abra pelo aviso de dados demonstrativos <span class="tempo">30 s</span></h3>
+      <p>Antes de qualquer número, aponte para a tarja amarela no topo.</p>
+      <p class="fala">A primeira coisa que vocês veem nesta tela é um aviso de que os dados são sintéticos. A base real não veio com o briefing, e a seção 14 diz que não se quer dado inexistente apresentado como real. Então esse aviso é permanente, não dá para fechar, e a API devolve essa flag em toda resposta.</p>
+      <p><strong>Por que abrir por aí:</strong> você elimina de saída a pergunta “esses números são reais?” e ganha crédito de honestidade que vale a apresentação inteira.</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">2</div>
+    <div class="txt">
+      <h3>Os três semáforos <span class="tempo">2 min</span></h3>
+      <p class="fala">Em cinco segundos o CEO responde uma pergunta só: está tudo bem? Montseguro verde, Prop5 e TechBrabo vermelhas. E o semáforo não é o percentual da meta — a Prop5 está a 92% do ritmo, o que sozinho seria amarelo. Ela é vermelha porque precisaria produzir 1,88 vez o ritmo atual nos dois dias úteis que faltam.</p>
+      <p>Depois aponte a barrinha de progresso de um dos cards: <strong>o traço preto é onde deveríamos estar hoje</strong>, não o fim da meta.</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">3</div>
+    <div class="txt">
+      <h3>RRG e VIG — o seu melhor momento <span class="tempo">2 min</span></h3>
+      <p>Role até os cards do consolidado. Aponte os dois lado a lado.</p>
+      <p class="fala">Aqui está a decisão de que eu mais gosto no projeto. Receita reconhecida do grupo: 940 mil. Volume intermediado: 12,9 milhões. Treze vezes maior. Se eu tivesse colocado um card de “Receita Total do Grupo” no topo, como quase todo dashboard faz, ele estaria errado nas três empresas ao mesmo tempo — porque cada uma tem um momento diferente em que o dinheiro vira receita. Na Prop5, o valor do imóvel não é receita da Prop5; a receita é a comissão, que é 4,7% disso.</p>
+      <p><strong>Se sobrar espaço, acrescente:</strong> “E tem um teste automatizado que falha se esses dois números se aproximarem — porque isso significaria que alguém somou o que não devia.”</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">4</div>
+    <div class="txt">
+      <h3>Um alerta, inteiro <span class="tempo">2 min</span></h3>
+      <p>Desça até os alertas. Escolha o primeiro e leia os cinco campos <em>em voz alta</em>, devagar.</p>
+      <p class="fala">Todo alerta responde cinco perguntas: o que houve, por que importa, quanto custa, o que fazer e quem faz. O “quanto custa” em reais é o que permite ao CEO priorizar entre empresas diferentes — uma queda de 22% na Montseguro e uma de 8% na Prop5 não são comparáveis em percentual, mas são em impacto financeiro. E repare no que o alerta não faz: ele não afirma a causa. Ele aponta onde olhar e propõe uma hipótese.</p>
+      <p>Então <strong>clique em “Abrir a tela que prova este alerta”</strong> e deixe a tela mudar com os filtros já aplicados. Não explique — deixe eles verem.</p>
+      <p class="fala">Insight que não leva a lugar nenhum é decoração.</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">5</div>
+    <div class="txt">
+      <h3>Comercial: três funis diferentes <span class="tempo">2 min</span></h3>
+      <p>Aponte os três funis lado a lado e leia os rótulos da quarta etapa em voz alta: <strong>Cotação</strong>, <strong>Diagnóstico financeiro</strong>, <strong>Reunião + diagnóstico</strong>.</p>
+      <p class="fala">As três empresas mantêm o nome real do seu estágio. Por baixo, tudo é lido por códigos canônicos S1 a S8, através de uma tabela de tradução no banco. É isso que responde ao dilema da seção 11: padronizar demais esconde informação, separar demais impede a visão de grupo.</p>
+      <p>E aponte a tabela “onde o funil vaza”, com o impacto em reais.</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">6</div>
+    <div class="txt">
+      <h3>Marketing: os dois ROAS <span class="tempo">2 min</span></h3>
+      <p>Vá até a matriz de canais e aponte as duas últimas colunas.</p>
+      <p class="fala">Tem dois ROAS aqui de propósito. O “de caixa” é o que a maioria dos painéis mostra: receita do mês dividida pelo investimento do mês. Ele infla, porque mistura receita recorrente de safras antigas com verba nova. O ROAS de coorte mede a receita gerada pelos leads que entraram no período. Com o ciclo consultivo da Prop5, a receita de agosto veio de leads de maio — então dividir agosto por agosto faria um mês de corte de verba parecer o mês mais eficiente da história. E levaria a cortar mais.</p>
+      <p>Aponte a marcação <strong>“imatura”</strong> e o gráfico de maturação embaixo.</p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">7</div>
+    <div class="txt">
+      <h3>Uma empresa por dentro <span class="tempo">1,5 min</span></h3>
+      <p>Abra a Prop5. Mostre os KPIs próprios e desça até a tabela de probabilidade por estágio.</p>
+      <p class="fala">Nenhum destes indicadores aparece nas outras duas empresas — e isso é verificado por teste. E essas probabilidades não são arbitradas: são a conversão observada de cada estágio, recalculada a cada leitura sobre o histórico da própria empresa. Valores fixos só ficam enquanto a amostra é menor que trinta.</p>
+      <p>Se der tempo, abra a TechBrabo e mostre o KPI de churn em cinza: <strong>“esse é o painel dizendo que não sabe, e nomeando o campo que falta.”</strong></p>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">8</div>
+    <div class="txt">
+      <h3>A sexta tela — a que eles não esperam <span class="tempo">2 min</span></h3>
+      <p>Abra <strong>Saúde dos Dados</strong>. É a única tela fora do menu executivo, e é a sua carta diferenciada.</p>
+      <p class="fala">Essa tela não estava no escopo mínimo do briefing — eu acrescentei. A seção 13 diz que dado faltante é um achado, e um achado que fica num slide não muda nada. Aqui ele vira acompanhamento: a completude de cada campo crítico por empresa, e ao lado, quais KPIs ficam impossíveis quando aquele campo não é registrado. Repare que motivo de perda está em setenta por cento nas três — é o campo que responde por que o funil vaza, e um em cada três negócios perdidos não tem essa informação.</p>
+      <p>Depois aponte três detalhes, nesta ordem — são eles que mostram rigor:</p>
+      <ul>
+        <li>O <strong>n ao lado de cada percentual</strong>: abaixo de 20 registros a célula fica cinza. “Um percentual sobre cinco casos não merece a autoridade de um semáforo.”</li>
+        <li><strong>“Campo inexistente”</strong> na linha de <code>data_cancelamento</code>: “campo vazio e campo que não existe no modelo são coisas diferentes, e é por isso que o churn da TechBrabo aparece indisponível.”</li>
+        <li>A tabela de <strong>registro por responsável</strong>: “completude de dado não é problema de sistema, é problema de rotina. Por isso essa tela fica fora do menu do CEO — ela serve para melhorar o registro, não para ranquear pessoas na frente da diretoria.”</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="passo">
+    <div class="n">9</div>
+    <div class="txt">
+      <h3>Feche pelo código <span class="tempo">1 min</span></h3>
+      <p>Passe o mouse sobre o “?” de qualquer KPI para abrir a ficha. Depois abra <code>127.0.0.1:8000/api/kpis</code> numa aba.</p>
+      <p class="fala">A documentação de KPI que o item 15.4 pede não está num documento paralelo que envelhece. Ela vive no mesmo arquivo que define o cálculo, é servida pela própria API e aparece no tooltip de cada card. Qualquer pessoa da liderança confere a origem de um número sem pedir para o time de dados.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="lbl">A devolutiva final</span>
+    <p>Termine devolvendo uma pergunta para eles — isso transforma o fim da apresentação no começo de uma conversa:</p>
+    <p class="fala" style="margin-left:0">Qual das três empresas vocês abririam primeiro num dia normal? É a partir dessa resposta que eu ajustaria a hierarquia da primeira tela.</p>
+  </div>
+</section>
+
+<!-- ============================================= 5 -->
+<section id="seis">
+  <h2>5 · As seis decisões que sustentam tudo</h2>
+  <p class="sub">Se você souber explicar estas seis sem consultar nada, você sustenta a entrevista inteira. Cada uma tem a versão de uma frase e a versão de trinta segundos.</p>
+
+  <h3>1 · RRG × VIG</h3>
+  <p><strong>Uma frase:</strong> duas grandezas separadas que o painel nunca soma.</p>
+  <p><strong>Trinta segundos:</strong> Cada empresa tem um momento diferente em que o dinheiro vira receita. Na Montseguro é a vigência, não a assinatura. Na Prop5 é a comissão, não o volume estruturado. Na TechBrabo é o marco entregue, não o contrato assinado. Então o painel calcula Receita Reconhecida — que é somável e é o número do CEO — e Volume Intermediado, que mede escala e fica em separado. Na base demo a razão entre os dois é 13,7 vezes.</p>
+
+  <h3>2 · Granularidade de evento, não de estado</h3>
+  <p><strong>Uma frase:</strong> guardo cada mudança de estágio com data e hora, não só onde a oportunidade está agora.</p>
+  <p><strong>Trinta segundos:</strong> Saber que a oportunidade está em Proposta responde <em>onde</em> ela está. Saber que ela entrou em Proposta em 12 de agosto às 14h responde <em>quanto tempo levou</em> e <em>onde vaza</em>. Sem evento datado não existe ciclo médio nem análise de gargalo — só fotografia. É a decisão de modelagem mais defensável do projeto, e é barata de gravar e cara de recuperar depois.</p>
+
+  <h3>3 · Tabela de tradução de estágios</h3>
+  <p><strong>Uma frase:</strong> cada empresa mantém o nome do seu estágio; o grupo lê tudo por códigos canônicos.</p>
+  <p><strong>Trinta segundos:</strong> É uma tabela no banco, não um <code>CASE</code> espalhado pelo front. Adicionar uma quarta empresa ao grupo passa a ser inserir linhas — não alterar telas. Esse é o teste que eu apliquei às minhas próprias decisões de arquitetura.</p>
+
+  <h3>4 · Meta é ritmo, não percentual</h3>
+  <p><strong>Uma frase:</strong> o painel calcula onde deveríamos estar hoje, em dias úteis.</p>
+  <p><strong>Trinta segundos:</strong> 62% da meta no dia 20 pode ser excelente ou catastrófico. Eu calculo a meta esperada até hoje, o gap, a necessidade diária e o índice de esforço. E o semáforo combina três condições: atingimento, esforço e cobertura de pipeline. Uma empresa pode estar em 98% da meta e ser vermelha se a cobertura caiu — o mês fecha bem e o próximo não. Semáforo só de atingimento é retrovisor; combinado com cobertura, vira para-brisa.</p>
+
+  <h3>5 · Atribuição por coorte de entrada do lead</h3>
+  <p><strong>Uma frase:</strong> a receita volta para o mês em que o lead entrou, não para o mês em que a venda fechou.</p>
+  <p><strong>Trinta segundos:</strong> Com ciclo longo, dividir a receita do mês pelo investimento do mês é analiticamente errado. A receita de agosto da Prop5 veio de leads de maio. Se você não corrige isso, um mês de corte de verba aparece como o mês mais eficiente da história — e a decisão que decorre é cortar mais. Por isso CPL, aproveitamento, CAC e ROAS são todos medidos na mesma população: a coorte de entrada.</p>
+
+  <h3>6 · Camada semântica única</h3>
+  <p><strong>Uma frase:</strong> nenhum componente de tela calcula KPI.</p>
+  <p><strong>Trinta segundos:</strong> Um gráfico pede um indicador e recebe pronto: valor, unidade, comparação, meta, tendência, status e a ficha de documentação. É isso que garante que “CAC” na tela do CEO e “CAC” na tela de Marketing sejam sempre o mesmo número — e é o que acaba com a discussão clássica de reunião “esse número está errado”.</p>
+</section>
+
+<!-- ============================================= 6 -->
+<section id="perguntas">
+  <h2>6 · Banco de respostas</h2>
+  <p class="sub">Perguntas prováveis, com respostas prontas. Leia em voz alta uma vez — o que soa natural escrito nem sempre soa natural falado.</p>
+
+  <div class="qa">
+    <p class="p">Por que Django e FastAPI juntos? Não é over-engineering?</p>
+    <p class="r">Cada um no que é bom. O Django me dá ORM, migrations e admin — a parte de integridade e evolução do schema. O FastAPI me dá contratos tipados e documentação OpenAPI automática para a API de leitura. Eles compartilham o mesmo ORM: o processo do FastAPI chama <code>django.setup()</code> e usa os models do Django direto, então não há duplicação nem uma segunda verdade sobre os dados. Se vocês preferirem consolidar em um só, é trivial — as rotas só chamam a camada semântica, que não sabe qual framework a expõe.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Por que não usou Django REST Framework?</p>
+    <p class="r">Poderia ter usado. DRF é excelente para CRUD; esta API é cem por cento leitura analítica, com estruturas que variam por empresa. FastAPI com Pydantic me deu tipagem e documentação com menos cerimônia. Não é uma escolha religiosa — é adequação ao caso.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Seu forecast é heurístico. Por que não um modelo estatístico?</p>
+    <p class="r">Porque com doze meses de histórico e poucos fechamentos grandes por mês na Prop5, um modelo estatístico entregaria um número com aparência de precisão que o dado não sustenta. Preferi uma heurística que qualquer pessoa da liderança consegue auditar linha a linha. Está no roadmap para a v1.2, condicionado a dois ciclos de histórico — aí entrega faixa de confiança em vez de número único.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">De onde vêm os pesos <span class="mono">w</span> do forecast?</p>
+    <p class="r">São hipóteses declaradas, não medidas. A lógica é: quanto mais fechamentos por mês, mais confiável é o ritmo observado; quanto mais longo o ciclo, melhor o funil prevê. Por isso Montseguro tem 0,65 e Prop5 tem 0,30. Eu recalibro comparando o erro de cada componente contra o realizado, a cada trimestre. É um parâmetro visível no código e no README, não uma constante escondida — e o pior forecast é aquele cuja lógica ninguém consegue auditar.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Você inventou os dados?</p>
+    <p class="r">Sim, e está declarado em todo lugar: na resposta da API, num aviso permanente da interface e no README. A base real não veio com o briefing. O gerador é determinístico, com semente fixa, e simula funis com probabilidades e durações diferentes por empresa, além do modelo de remuneração de cada uma. Alguns sinais foram plantados de propósito para exercitar o motor de alertas, e estão marcados no código com a etiqueta SINAL. Se vocês me passarem a base real hoje, o que muda é o comando de carga — o resto do sistema não sabe a diferença.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">53 KPIs não é justamente o excesso que você criticou?</p>
+    <p class="r">São 53 no catálogo, mas a tela do CEO mostra sete indicadores e no máximo cinco alertas. O catálogo é a biblioteca; a tela é a curadoria. E cada indicador tem dono, limiar de semáforo e uma armadilha documentada — nenhum é decorativo. A restrição é o produto.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Como você garante que o número está certo?</p>
+    <p class="r">Testes de reconciliação, principalmente. A soma das partes tem que bater com o todo: a receita do grupo é igual à soma das empresas; a receita por natureza soma o total; o investimento por canal soma o total; o funil é monotonicamente decrescente; a conversão nunca passa de cem por cento. É barato e pega quase todo erro de junção e de filtro. Além disso, testes unitários por fórmula com os casos de borda — divisão por zero, período sem meta, amostra vazia.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">E se a base real tiver dezenas de milhões de linhas?</p>
+    <p class="r">O star schema já está pronto para isso. Troco SQLite por PostgreSQL com uma variável de ambiente, sem mudar código. Acima disso, materializo agregações por dia e, se for necessário, migro para um banco colunar. A camada semântica isola o acesso ao dado, então nenhuma tela precisa mudar.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">E se o CRM de vocês não tiver esses campos?</p>
+    <p class="r">Aí eu aponto quais faltam e por quê — é literalmente o que a seção 13 pede. Mapeei oito. O mais crítico é o id do lead propagado até a receita: sem ele, a pergunta “onde eu invisto o próximo real?” não tem resposta baseada em dado, só opinião. E o painel já lida com isso: um KPI que depende de campo ausente aparece em cinza, nomeando o campo que falta, em vez de estimar. Tem um exemplo real na tela da TechBrabo.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Por que gastou tempo com testes num desafio técnico?</p>
+    <p class="r">Porque em painel executivo o bug mais caro não quebra a tela — ele mostra um número errado com aparência de certo, e alguém decide com base nele. Priorizei fórmulas de KPI, qualidade de dados e reconciliação, que cobrem o maior risco. Testes de fluxo ponta a ponta ficaram no roadmap, e eu digo isso no README em vez de fingir cobertura completa.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Por que você acrescentou uma tela que não foi pedida?</p>
+    <p class="r">A seção 14 dá liberdade de propor desde que se justifique a utilidade, e a seção 13 pede para apontar dados faltantes. O que eu fiz foi conectar as duas: a lista de campos que faltam vira uma tela de acompanhamento em vez de um slide. Ela fica fora do menu executivo de propósito — é ferramenta de gestão, não de leitura de CEO. E o escopo mínimo das cinco áreas está todo lá.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Como o painel sabe quais KPIs estão bloqueados?</p>
+    <p class="r">A lista não é mantida à mão. Todo indicador que a camada semântica entrega com o campo <code>indisponivel_por</code> preenchido aparece automaticamente ali, com o mesmo motivo que o front já mostra em cinza na tela da empresa. Se amanhã alguém adicionar um KPI que depende de um campo inexistente, ele aparece sozinho na Saúde dos Dados.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">O que você faria diferente se recomeçasse?</p>
+    <p class="r">Três coisas. Primeiro, modelaria custo desde o início — hoje só a TechBrabo tem margem, as outras duas medem receita. Segundo, teria começado pelo evento de estágio antes de qualquer tela; foi o que mais me custou refazer. Terceiro, teria feito a atribuição por coorte já na primeira versão, em vez de descobrir na metade que a atribuição por mês estava inflando o ROAS.</p>
+  </div>
+
+  <div class="qa">
+    <p class="p">Quanto tempo você levou?</p>
+    <p class="r">[Responda com a verdade.] E complete com o que você <em>escolheu</em> não fazer no tempo disponível: autenticação e RBAC, testes ponta a ponta, e o simulador de realocação de verba. Escolha explícita soa muito melhor que omissão.</p>
+  </div>
+</section>
+
+<!-- ============================================= 7 -->
+<section id="dificeis">
+  <h2>7 · As perguntas que doem</h2>
+  <p class="sub">Estas você não quer ouvir. Justamente por isso, ensaie.</p>
+
+  <div class="qa dificil">
+    <p class="p">Você usou IA para fazer isso?</p>
+    <p class="r"><strong>Diga a verdade, sem defensiva e sem desculpa.</strong> Algo como: “Usei, sim — como ferramenta, do jeito que uso documentação e Stack Overflow. As decisões de negócio e de modelagem são minhas e eu consigo defender cada uma. Pode abrir qualquer arquivo e me perguntar.” E então <em>esteja pronto para isso ser verdade.</em> Ser pego escondendo é infinitamente pior do que assumir. Em 2026, uma empresa de tecnologia que rejeita alguém por usar IA é rara; uma que rejeita por desonestidade é a regra.</p>
+  </div>
+
+  <div class="qa dificil">
+    <p class="p">Abre o arquivo X e me explica essa função.</p>
+    <p class="r">Esta é a razão do item 10 deste caderno. Não existe resposta pronta — existe preparação. Reserve tempo real percorrendo o código antes do dia, especialmente <code>kpis/grupo.py</code> (ritmo e forecast), <code>kpis/consultas.py</code> (funil e fator de receita), <code>kpis/alertas.py</code> (as nove regras) e <code>kpis/saude_dados.py</code> (completude e KPIs bloqueados). São os quatro arquivos onde mora o raciocínio.</p>
+  </div>
+
+  <div class="qa dificil">
+    <p class="p">Esse ROAS de 4,35 é plausível? E esse CAC?</p>
+    <p class="r">Reconheça antes que eles cavem: “O funil da carga demonstrativa converte de forma otimista frente ao mercado real — a razão lead-para-fechamento está mais alta do que se veria em tráfego pago de verdade. Isso afeta a plausibilidade absoluta do CAC e do ROAS, não a lógica dos indicadores. Está declarado nas limitações do README.” Admitir o limite do dado sintético te protege; defender número inventado te derruba.</p>
+  </div>
+
+  <div class="qa dificil">
+    <p class="p">Você é júnior. Isso não está sofisticado demais para o seu nível?</p>
+    <p class="r">Não trate como acusação — trate como abertura. “O que eu trouxe de mais forte aqui não é código difícil; é entendimento de negócio. A parte técnica é um star schema, uma camada de cálculo e um front que consome API. O que me custou foi entender por que somar as três empresas dá errado, e isso eu li no briefing e nos sites de vocês.” Isso reposiciona a conversa no seu terreno mais forte.</p>
+  </div>
+
+  <div class="qa dificil">
+    <p class="p">Por que você não construiu o que a gente pediu, e sim o que você achou melhor?</p>
+    <p class="r">“Construí o escopo mínimo da seção 4 inteiro — as cinco áreas estão lá. O que eu acrescentei foi justificado, porque a seção 14 dá liberdade de propor desde que se justifique a utilidade. Se alguma escolha não fizer sentido para a operação de vocês, ela é reversível: as regras de semáforo, os pesos do forecast e os limiares de alerta são todos parâmetros declarados, não estão embutidos na lógica.”</p>
+  </div>
+
+  <div class="card risk">
+    <span class="lbl">O que não fazer, em nenhuma hipótese</span>
+    <ul style="margin-bottom:0">
+      <li><strong>Não apresente número demonstrativo como se fosse real.</strong> Toda vez que citar um valor, use “na base de demonstração”.</li>
+      <li><strong>Não invente causa para um alerta.</strong> Se perguntarem por que a conversão caiu, a resposta é “o painel não sabe — ele aponta onde investigar”. Isso é a feature, não uma limitação.</li>
+      <li><strong>Não critique o briefing nem a operação deles.</strong> “Falta o campo X” é constatação; “o CRM de vocês é ruim” é ofensa.</li>
+      <li><strong>Não prometa prazo</strong> para nada do roadmap. Fale em dependências (“precisa de seis meses de histórico”), não em datas.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================= 8 -->
+<section id="glossario">
+  <h2>8 · Glossário de bolso</h2>
+  <p class="sub">Os termos que estão na tela e que você precisa definir em uma frase se alguém perguntar.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th style="width:26%">Termo</th><th>Em uma frase</th></tr></thead>
+      <tbody>
+        <tr><td><strong>RRG</strong></td><td>Receita Reconhecida do Grupo — a única receita somável entre as três empresas.</td></tr>
+        <tr><td><strong>VIG</strong></td><td>Volume Intermediado do Grupo — o que passou pela mesa. Mede escala, não resultado.</td></tr>
+        <tr><td><strong>Take rate</strong></td><td>Quanto do volume estruturado vira comissão da Prop5. Na base demo, 4,7%.</td></tr>
+        <tr><td><strong>APE</strong></td><td>Prêmio anualizado — prêmio mensal vezes doze. É base de comissão, não é receita.</td></tr>
+        <tr><td><strong>Agenciamento × corretagem</strong></td><td>As duas receitas da Montseguro: a pontual da entrada e a recorrente da carteira.</td></tr>
+        <tr><td><strong>Coorte</strong></td><td>A safra de leads que entrou num mês, acompanhada ao longo do tempo.</td></tr>
+        <tr><td><strong>Coorte imatura</strong></td><td>Safra que ainda não teve tempo de converter. Número baixo por tempo, não por eficiência.</td></tr>
+        <tr><td><strong>Índice de esforço</strong></td><td>Quantas vezes o ritmo atual a operação precisa produzir para bater a meta.</td></tr>
+        <tr><td><strong>Cobertura de pipeline</strong></td><td>Pipeline ponderado dividido pelo que falta da meta. Referência de mercado: 3×.</td></tr>
+        <tr><td><strong>Pipeline ponderado</strong></td><td>Soma do valor das oportunidades vezes a probabilidade observada do estágio.</td></tr>
+        <tr><td><strong>Aging do pipeline</strong></td><td>% de oportunidades paradas. Distingue ciclo longo saudável de pipeline morto.</td></tr>
+        <tr><td><strong>Taxa de realização</strong></td><td>S6 → S7: quanto do que foi vendido virou entrega concluída.</td></tr>
+        <tr><td><strong>MRR / NRR</strong></td><td>Receita recorrente mensal / retenção líquida de receita. Acima de 100% a base cresce sozinha.</td></tr>
+        <tr><td><strong>Backlog</strong></td><td>Receita já vendida esperando entrega. Crescendo com entrega estável, é risco de capacidade.</td></tr>
+        <tr><td><strong>Star schema</strong></td><td>Modelo com tabelas de fato no centro e dimensões ao redor. Padrão de análise.</td></tr>
+        <tr><td><strong>Dimensão conformada</strong></td><td>Dimensão compartilhada entre empresas — é o que torna a comparação possível.</td></tr>
+        <tr><td><strong>Camada semântica</strong></td><td>O único lugar do sistema que define o que cada indicador significa.</td></tr>
+        <tr><td><strong>Completude</strong></td><td>% de registros com o campo preenchido, medido em janela móvel de 180 dias.</td></tr>
+        <tr><td><strong>Campo inexistente</strong></td><td>Diferente de campo vazio: não foi modelado. É o que bloqueia o churn da TechBrabo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= 9 -->
+<section id="planob">
+  <h2>9 · Se algo quebrar</h2>
+  <p class="sub">Vai dar tudo certo. Mas ter o plano B pronto é o que te deixa calmo o suficiente para dar tudo certo.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th style="width:34%">Sintoma</th><th>O que fazer, na hora</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tela em branco ou erro vermelho</strong></td>
+            <td>A API caiu. Diga: “deixa eu reiniciar o backend, um instante” — e reinicie. Enquanto sobe, continue falando pela apresentação. Não peça desculpa mais de uma vez.</td></tr>
+        <tr><td><strong>Números diferentes do esperado</strong></td>
+            <td>Provavelmente a carga foi refeita. Não improvise explicação: “a base é regenerada com semente fixa, deixa eu conferir depois”. Siga pela lógica, não pelo valor.</td></tr>
+        <tr><td><strong>Compartilhamento de tela falha</strong></td>
+            <td>Use os prints salvos. Você perde a interatividade, não a apresentação.</td></tr>
+        <tr><td><strong>Travou e você perdeu a linha de raciocínio</strong></td>
+            <td>Volte para a pergunta central do briefing: “onde agir, investir, corrigir ou acelerar”. Toda parte do projeto responde a um desses quatro verbos.</td></tr>
+        <tr><td><strong>Perguntaram algo que você não sabe</strong></td>
+            <td>“Não sei. Eu checaria em [onde].” — e siga em frente. Um “não sei” direto vale mais que trinta segundos de enrolação, e eles percebem a diferença.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= 10 -->
+<section id="antes">
+  <h2>10 · O que fazer antes do dia</h2>
+  <p class="sub">Na ordem de retorno. Se o tempo for curto, faça os três primeiros.</p>
+
+  <ol>
+    <li><strong>Percorra o código com o README aberto ao lado.</strong> Comece por <code>kpis/grupo.py</code>, depois <code>kpis/consultas.py</code>, <code>kpis/alertas.py</code> e <code>kpis/saude_dados.py</code>. Para cada função, pergunte a si mesmo: “se abrirem isso e me perguntarem, eu explico?”. Onde a resposta for não, leia até virar sim.</li>
+    <li><strong>Rode a demo inteira em voz alta, cronometrada, sozinho.</strong> Duas vezes. A primeira vai ser ruim e é para isso que ela serve. Grave a segunda no celular e assista — você vai encontrar os pontos onde enrola.</li>
+    <li><strong>Decore os números da seção 2</strong> deste caderno. Não todos: RRG, VIG, a razão 13,7×, o take rate de 4,7% e por que cada empresa está na cor que está.</li>
+    <li><strong>Quebre o painel de propósito.</strong> Pare a API e veja a tela de erro. Mude o período para um mês sem dados. Você quer conhecer o comportamento nos cantos antes que eles conheçam.</li>
+    <li><strong>Releia o briefing uma última vez</strong> com o painel aberto ao lado, marcando qual tela responde qual seção. Citar a seção pelo número, de memória, causa uma impressão desproporcional ao esforço.</li>
+    <li><strong>Prepare três perguntas para fazer a eles.</strong> Sugestões: qual das três empresas mais preocupa hoje; se a TechBrabo já fatura fora do grupo; e qual sistema é a fonte de verdade do funil comercial hoje. Perguntas boas sinalizam interesse real no negócio.</li>
+  </ol>
+
+  <div class="card ok">
+    <span class="lbl">Última coisa</span>
+    <p>Você não está indo defender um dashboard. Você está indo mostrar que <strong>entendeu três negócios diferentes e traduziu isso em uma ferramenta de decisão</strong> — que é literalmente o que a seção 17 do briefing diz que eles querem avaliar.</p>
+    <p>A parte difícil já está feita e está escrita. Agora é só contar.</p>
+  </div>
+</section>
+
+<footer>
+  Caderno de bordo · preparado para a apresentação do Desafio Técnico do Grupo Mont · agosto de 2026.<br>
+  Material privado — não integra a entrega.
+</footer>
+
+</div>
