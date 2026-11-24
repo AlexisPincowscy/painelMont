@@ -1,3 +1,11 @@
+# Mont Executive Dashboard
+
+An executive analytics dashboard built for a technical challenge. The FastAPI service exposes a typed KPI catalog, Django ORM manages the dimensional model, and the React dashboard presents metrics across three business units. The local setup uses SQLite and demo data, with PostgreSQL supported through configuration.
+
+The original documentation below includes the setup and implementation details.
+
+---
+
 # Painel Executivo · Grupo Mont
 
 Dashboard executivo consolidando **Montseguro**, **Prop5 Investimentos** e **TechBrabo**,
